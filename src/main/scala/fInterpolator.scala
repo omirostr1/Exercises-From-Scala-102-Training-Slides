@@ -11,4 +11,5 @@ object fInterpolator extends App{
   // %d - Decimal number
   // %i - int etc.
 
+
 }
