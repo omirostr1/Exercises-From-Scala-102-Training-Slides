@@ -75,7 +75,7 @@ object restaurant_service_charge extends App{
           5 -> Lobster)
         println(catalogue)
         var choice = readInt()
-        println(choice)
+        println(choice) //comment
         println("Please enter quantity")
         val input = readLine()
         try {
