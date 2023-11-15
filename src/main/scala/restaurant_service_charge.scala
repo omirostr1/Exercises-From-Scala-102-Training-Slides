@@ -68,8 +68,8 @@ object restaurant_service_charge extends App{
           tip = 0
         }
         total = currency(total)
-        println(s"The total is $total and the tip suggested is $tip")
-        println(s"The time of transaction is ${LocalDateTime.now().getHour}:${LocalDateTime.now().getMinute}")
+        return println(s"The total is $total and the tip suggested is $tip")
+        return println(s"The time of transaction is ${LocalDateTime.now().getHour}:${LocalDateTime.now().getMinute}")
       } else {
         val catalogue: ListMap[Int, MenuItem] = ListMap(1 -> Cola, 2 -> Coffee, 3 -> Cheese_Sandwich, 4 -> Steak_Sandwich,
           5 -> Lobster)
@@ -81,7 +81,7 @@ object restaurant_service_charge extends App{
         try {
           var quantity = input.toInt
           if (quantity >= 0) {
-            println(quantity)
+            //println(quantity)
           } else {
             return println("Error! Please enter a valid option.")
           }
@@ -103,21 +103,37 @@ object restaurant_service_charge extends App{
         if (catalogue(choice).hot == true & catalogue(choice).food == true) isHot = true
         println(foodExists, isHot)
         println("Finished(y/n)")
-        var finishedOneChar = readLine()
+        var finishedOneChar = readLine().toLowerCase
         println(finishedOneChar)
         if (finishedOneChar == "y") {
           println("Do you have a Loyalty card?(y/n)")
-          var loyalty = readLine()
+          var loyalty = readLine().toLowerCase()
           if (loyalty == "y" & isPremium == false) {
             println("How many stars do you have?")
-            var stars = readInt()
-            if (stars >= 3 & stars <= 8) total = total * (100 - stars * 2.5)/100
+            val stars = readLine()
+            try {
+              var integer_transformation = stars.toInt
+              if (integer_transformation >= 0) {
+                //println(quantity)
+              } else {
+                return println("Error! Please enter a valid option.")
+              }
+            } catch {
+              case _: NumberFormatException =>
+                return println("Error! Please enter a valid integer.")
+            }
+            var stars_checked = stars.toInt
+            if (stars_checked >= 3 & stars_checked <= 8) total = total * (100 - stars_checked * 2.5) / 100
+            accumulator(finished = true)
+          } else if (loyalty == "n") {
+            accumulator(finished = true)
+          } else {
+            return println("Error! Please enter a valid option.")
           }
-          accumulator(finished = true)
         } else if (finishedOneChar == "n") {
           accumulator(finished = false)
         } else {
-          println("Error! Please enter a valid option.")
+          return println("Error! Please enter a valid option.")
         }
       }
     }
