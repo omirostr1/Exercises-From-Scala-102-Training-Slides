@@ -54,7 +54,7 @@ object restaurant_service_charge extends App{
 
   def takeOrder(finished: Boolean) : Unit = {
     def accumulator(finished: Boolean) : Unit = {
-      println(finished)
+      //println(finished)
       if (finished == true) {
         if ( isPremium == true) {
           tip = total * 25 / 100
@@ -68,8 +68,7 @@ object restaurant_service_charge extends App{
           tip = 0
         }
         total = currency(total)
-        return println(s"The total is $total and the tip suggested is $tip")
-        return println(s"The time of transaction is ${LocalDateTime.now().getHour}:${LocalDateTime.now().getMinute}")
+        println(s"The total is $total and the tip suggested is $tip \n The time of transaction is ${LocalDateTime.now().getHour}:${LocalDateTime.now().getMinute}")
       } else {
         val catalogue: ListMap[Int, MenuItem] = ListMap(1 -> Cola, 2 -> Coffee, 3 -> Cheese_Sandwich, 4 -> Steak_Sandwich,
           5 -> Lobster)
@@ -79,24 +78,24 @@ object restaurant_service_charge extends App{
         println("Please enter quantity")
         val input = readLine()
         try {
-          var quantity = input.toInt
-          if (quantity >= 0) {
+          val quantity = input.toInt
+          if (quantity > 0) {
             //println(quantity)
           } else {
-            return println("Error! Please enter a valid option.")
+            println("Error! Please enter a valid option.")
           }
         } catch {
           case _: NumberFormatException =>
-            return println("Error! Please enter a valid integer.")
+            println("Error! Please enter a valid integer.")
         }
-        var quantity = input.toInt
+        val quantity = input.toInt
         choice match {
           case 1 => total += happyHour(catalogue(choice).cost, quantity)
           case 2 => total += happyHour(catalogue(choice).cost, quantity)
           case 3 => total += catalogue(choice).cost * quantity
           case 4 => total += catalogue(choice).cost * quantity
           case 5 => total += catalogue(choice).cost * quantity
-          case _ => return println("Error! Please enter a valid option.")
+          case _ => println("Error! Please enter a valid option.")
         }
         if (catalogue(choice).premium == true) isPremium = true
         if (catalogue(choice).food == true) foodExists = true
@@ -116,11 +115,11 @@ object restaurant_service_charge extends App{
               if (integer_transformation >= 0) {
                 //println(quantity)
               } else {
-                return println("Error! Please enter a valid option.")
+                println("Error! Please enter a valid option.")
               }
             } catch {
               case _: NumberFormatException =>
-                return println("Error! Please enter a valid integer.")
+                println("Error! Please enter a valid integer.")
             }
             var stars_checked = stars.toInt
             if (stars_checked >= 3 & stars_checked <= 8) total = total * (100 - stars_checked * 2.5) / 100
@@ -128,12 +127,12 @@ object restaurant_service_charge extends App{
           } else if (loyalty == "n") {
             accumulator(finished = true)
           } else {
-            return println("Error! Please enter a valid option.")
+            println("Error! Please enter a valid option.")
           }
         } else if (finishedOneChar == "n") {
           accumulator(finished = false)
         } else {
-          return println("Error! Please enter a valid option.")
+          println("Error! Please enter a valid option.")
         }
       }
     }
